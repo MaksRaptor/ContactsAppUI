@@ -18,7 +18,7 @@ namespace ContactsAppUI
         public MainForm()
         {
             InitializeComponent();
-             
+
         }
 
 
@@ -64,23 +64,23 @@ namespace ContactsAppUI
                 ContactsList.Sorted = true;
 
                 if (ContactsList.Items.Count > 0)
-            {
-                ContactsList.SelectedIndex = 0;
-            }
+                {
+                    ContactsList.SelectedIndex = 0;
+                }
 
 
                 ContactsList.EndUpdate();
 
-            /// <summary>
-            /// ѕоиск выбранного контакта
-            /// </summary> 
+                /// <summary>
+                /// ѕоиск выбранного контакта
+                /// </summary> 
 
 
                 contact1 = ContactsApp.ProjectManager.SearchForContact(ContactsList.SelectedItem.ToString());
 
-            //. <summary>
-            ///  «аполнение полей выбранного контакта
-            /// </summary>
+                //. <summary>
+                ///  «аполнение полей выбранного контакта
+                /// </summary>
 
                 LastNameBox.Text = contact1.LastName;
 
@@ -94,13 +94,18 @@ namespace ContactsAppUI
 
                 VkBox.Text = contact1.VkId;
 
-                }
-    }
+                this.Show();
+
+                AnnounceBirthdays();
 
 
-            /// <summary>
-            /// ќбработка событи€ изменени€ текущего контакта в ListBox'е
-            /// </summary> 
+            }
+        }
+
+
+        /// <summary>
+        /// ќбработка событи€ изменени€ текущего контакта в ListBox'е
+        /// </summary> 
 
         private void ContactsList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -125,26 +130,26 @@ namespace ContactsAppUI
 
             }
         }
-            /// <summary>
-            /// ќбработка выбора пункта меню "Exit" (завершение работы)
-            /// </summary> 
+        /// <summary>
+        /// ќбработка выбора пункта меню "Exit" (завершение работы)
+        /// </summary> 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-            /// <summary>
-            /// ќбработка выбора пункта меню "Add Contact" (добавление контакта)
-            /// </summary> 
+        /// <summary>
+        /// ќбработка выбора пункта меню "Add Contact" (добавление контакта)
+        /// </summary> 
         private void AddContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddEdit newform = new AddEdit();
             newform.Show();
             newform.Closing += AddEdit_Closing;
         }
-            /// <summary>
-            /// ќбработка выбора пункта меню "Edit Contact" (редактирование контакта)
-            /// </summary> 
+        /// <summary>
+        /// ќбработка выбора пункта меню "Edit Contact" (редактирование контакта)
+        /// </summary> 
         private void EditContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddEdit newform = new AddEdit();
@@ -154,11 +159,12 @@ namespace ContactsAppUI
             newform.Closing += AddEdit_Closing;
         }
 
-            /// <summary>
-            /// ќбработка выбора пункта меню "Remove Contact" (удаление контакта)
-            /// </summary> 
+        /// <summary>
+        /// ќбработка выбора пункта меню "Remove Contact" (удаление контакта)
+        /// </summary> 
         private void RemoveContactToolStripMenuItem_Click(object sender, EventArgs e)
-        {   Contact contact2 = new Contact(); 
+        {
+            Contact contact2 = new Contact();
             Project project2 = new Project();
 
             DialogResult result = MessageBox.Show("Are you sure?", "Question", MessageBoxButtons.YesNo);
@@ -210,12 +216,12 @@ namespace ContactsAppUI
                 }
 
             }
-            }
-            
-            /// <summary>
-            /// ќбработка выбора пункта меню "Help" (вывод окна с информацией о программе)
-            /// </summary> 
-            private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
+        }
+
+        /// <summary>
+        /// ќбработка выбора пункта меню "Help" (вывод окна с информацией о программе)
+        /// </summary> 
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             About newform = new About();
             newform.Show();
@@ -235,8 +241,8 @@ namespace ContactsAppUI
         }
 
         /// <summary>
-            /// ќбработка нажати€ кнопки редактировани€ контакта (EDIT)
-            /// </summary> 
+        /// ќбработка нажати€ кнопки редактировани€ контакта (EDIT)
+        /// </summary> 
         private void EditContactButton_Click(object sender, EventArgs e)
         {
             Project project = new Project();
@@ -246,9 +252,9 @@ namespace ContactsAppUI
             newform.Closing += AddEdit_Closing;
         }
 
-            /// <summary>
-            /// ќбработка нажати€ кнопки удалени€ контакта (минус)
-            /// </summary> 
+        /// <summary>
+        /// ќбработка нажати€ кнопки удалени€ контакта (минус)
+        /// </summary> 
         private void RemoveContactButton_Click(object sender, EventArgs e)
         {
             Contact contact2 = new Contact();
@@ -258,19 +264,19 @@ namespace ContactsAppUI
             {
                 project2 = ContactsApp.ProjectManager.LoadContactListFromFile();
                 contact2 = ContactsApp.ProjectManager.SearchForContact(LastNameBox.Text);
-                
-                for (int j = 0;j < project2.ContactsList.Count; j++ )
+
+                for (int j = 0; j < project2.ContactsList.Count; j++)
+                {
+                    if (project2.ContactsList[j].LastName == LastNameBox.Text)
                     {
-                        if (project2.ContactsList[j].LastName == LastNameBox.Text)
-                        {
-                            contact2 = project2.ContactsList[j];
-                        }
-                    
+                        contact2 = project2.ContactsList[j];
                     }
-               
+
+                }
+
                 if (project2.ContactsList.Remove(contact2) == true)
                 {
-                    File.WriteAllText(ContactsApp.My_Constants.WholePath,string.Empty);
+                    File.WriteAllText(ContactsApp.My_Constants.WholePath, string.Empty);
                     ContactsApp.ProjectManager.SaveContactListToFile(project2);
                 }
 
@@ -303,10 +309,10 @@ namespace ContactsAppUI
 
 
             }
-            }
-            /// <summary>
-            /// «аполнение полей внутренней формы дл€ последующего редактировани€ контакта
-            /// </summary> 
+        }
+        /// <summary>
+        /// «аполнение полей внутренней формы дл€ последующего редактировани€ контакта
+        /// </summary> 
         private void PopulateContactDataFromTextBoxesForEditing(AddEdit form)
         {
             form.LastNameBox.Text = LastNameBox.Text;
@@ -344,7 +350,7 @@ namespace ContactsAppUI
         private void AddEdit_Closing(object sender, EventArgs e)
         {
             Project project = new Project();
-            
+
             ContactsList.Items.Clear();
 
             ContactsList.BeginUpdate();
@@ -367,14 +373,95 @@ namespace ContactsAppUI
                 {
                     ContactsList.SelectedIndex = 0;
                 }
-                
+
                 ContactsList.EndUpdate();
+            }
+        }
+
+        private void AnnounceBirthdays()
+        {
+            DateTime thisday = DateTime.Today;
+            Contact contact = new Contact();
+            Project project = new Project();
+            string temp1 = "";
+            string temp2 = thisday.ToString("d").Substring(0, thisday.ToString("d").LastIndexOf("."));
+            project = ContactsApp.ProjectManager.LoadContactListFromFile();
+
+            for (int j = 0; j < project.ContactsList.Count; j++)
+            {
+                contact.LastName = project.ContactsList[j].LastName;
+                contact.Birthday = project.ContactsList[j].Birthday;
+                temp1 = contact.Birthday.Substring(0, contact.Birthday.LastIndexOf("."));
+
+                if (string.Equals(temp1, temp2))
+                {
+                    MessageBox.Show(contact.LastName + " - день рождени€!. ѕоздравл€ем!");
+                }
             }
         }
 
         private void MainForm__Close(object sender, EventArgs e)
         {
             this.Closing += MainForm__Closing;
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            int k = 0;
+
+            Project project = new Project();
+            if (ContactsList.SelectedIndex != -1)
+
+            {
+                k = ContactsList.SelectedIndex;
+            }
+            
+            ContactsList.BeginUpdate();
+
+            project = ContactsApp.ProjectManager.LoadContactListFromFile();
+
+            if (SearchBox.Text != "")
+            {
+                ContactsList.Items.Clear();
+                
+                for (int j = 0; j < project.ContactsList.Count; j++)
+
+                {
+                    if (project.ContactsList[j].LastName.ToString().Contains(SearchBox.Text))
+                    {
+                        ContactsList.Items.Add(project.ContactsList[j].LastName);
+                    }
+
+                    if (ContactsList.Items.Count == 0)
+                    {
+                        LastNameBox.Text = string.Empty;
+                        NameBox.Text = string.Empty;
+                        BirthdayBox.Text = string.Empty;
+                        PhoneBox.Text = string.Empty;
+                        EMailBox.Text = string.Empty;
+                        VkBox.Text = string.Empty;
+                    }
+                    
+                }
+                
+            }
+            else
+            {
+                ContactsList.Items.Clear();
+
+                for (int j = 0; j < project.ContactsList.Count; j++)
+                {
+                    ContactsList.Items.Add(project.ContactsList[j].LastName);
+                }
+            }
+
+            if (ContactsList.Items.Count > 0)
+            {
+                ContactsList.SelectedIndex = ContactsList.Items.Count -1;
+
+            }
+            ContactsList.EndUpdate();
+
         }
     }
 }
