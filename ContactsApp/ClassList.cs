@@ -6,6 +6,7 @@ using System.Text.Unicode;
 using System.Collections.Generic;
 
 
+
 namespace ContactsApp
 {
     
@@ -63,7 +64,8 @@ namespace ContactsApp
         public static Project LoadContactListFromFile()
         {
             json = File.ReadAllText(ContactsApp.My_Constants.WholePath);
-            json2 = new string(json);
+            json2 = json;
+            
             Contact contact = new Contact();
             Project project = new Project();
 
@@ -96,10 +98,7 @@ namespace ContactsApp
 
         }
 
-
-
         
-
        public static Contact SearchForContact(string text)
         {
             int index = json2.IndexOf(text);

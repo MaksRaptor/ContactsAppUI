@@ -65,6 +65,7 @@
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(100, 23);
             SearchBox.TabIndex = 0;
+            SearchBox.TextChanged += SearchBox_TextChanged;
             // 
             // label1
             // 
