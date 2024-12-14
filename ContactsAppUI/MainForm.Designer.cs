@@ -315,8 +315,8 @@
         #endregion
 
         public TextBox SearchBox;
-        private Label label1;
-        private ListBox ContactsList;
+        private Label label1; 
+        public ListBox ContactsList;
         public TextBox LastNameBox;
         private Label label2;
         private TextBox NameBox;

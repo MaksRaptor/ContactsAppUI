@@ -67,10 +67,13 @@ namespace ContactsAppUI
                 contact1.Phone = MaskedPhoneBox.Text;
                 contact1.Email = EMailBox.Text;
                 contact1.VkId = VkBox.Text;
-
                 project.ContactsList.Add(contact1);
+
                 File.WriteAllText(ContactsApp.My_Constants.WholePath, string.Empty);
+                
+                
                 ContactsApp.ProjectManager.SaveContactListToFile(project);
+                this.Close();
                 return;
             }
             else
@@ -90,6 +93,7 @@ namespace ContactsAppUI
                 project.ContactsList[i] = contact1;
                 File.WriteAllText(ContactsApp.My_Constants.WholePath, string.Empty);
                 ContactsApp.ProjectManager.SaveContactListToFile(project);
+                this.Close();
                 return;
 
             }

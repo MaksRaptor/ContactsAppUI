@@ -208,7 +208,7 @@
         private Label label2;
         public TextBox LastNameBox;
         private Button OkButton;
-        private Button CancelButton;
+        private new Button CancelButton;
         public MaskedTextBox MaskedPhoneBox;
         public MaskedTextBox MaskedBirthdayBox;
     }

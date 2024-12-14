@@ -4,7 +4,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Collections.Generic;
-
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace ContactsApp
@@ -63,26 +63,37 @@ namespace ContactsApp
 
         public static Project LoadContactListFromFile()
         {
-            json = File.ReadAllText(ContactsApp.My_Constants.WholePath);
-            json2 = json;
-            
+            long length = 0;
+            length = new System.IO.FileInfo(ContactsApp.My_Constants.WholePath).Length;
+            if (length > 0)
+            {
+                json = File.ReadAllText(ContactsApp.My_Constants.WholePath);
+                json2 = json;
+            }
+
             Contact contact = new Contact();
             Project project = new Project();
 
             /// <summary>
             ///Получение списка контактов 
             /// </summary>
-            /// 
-            while (json.IndexOf('{') != -1)
+            ///
+            
+            if (!string.Equals(json,null))
             {
-                string temp = json.Substring(0, json.IndexOf('}') + 1);
+                while (json.IndexOf('{') != -1)
+                {
+                    string temp = json.Substring(0, json.IndexOf('}') + 1);
 
-                json = json.Substring(json.IndexOf('}') + 1);
+                    json = json.Substring(json.IndexOf('}') + 1);
 
-                contact = JsonSerializer.Deserialize<Contact>(temp, options);
+                    contact = JsonSerializer.Deserialize<Contact>(temp, options);
 
-               project.ContactsList.Add(contact);
-               
+                    project.ContactsList.Add(contact);
+
+                }
+
+                
             }
             return project;
         }

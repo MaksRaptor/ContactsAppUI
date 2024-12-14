@@ -35,19 +35,21 @@ namespace ContactsAppUI
             /// Если файла нет - создаем пустой
             /// </summary>
 
-            if (!File.Exists(ContactsApp.My_Constants.WholePath))
+            if (File.Exists(ContactsApp.My_Constants.WholePath) == false)
             {
-                File.Create(ContactsApp.My_Constants.WholePath);
-                return;
+                var myfile = File.Create(ContactsApp.My_Constants.WholePath);
+                myfile.Close();
+
             }
 
             ///<summary>
             /// Очищаем ContactsList и получаем список контактов из файла
             /// </summary>
             /// 
+            
             ContactsList.Items.Clear();
 
-            ContactsList.BeginUpdate();
+            //ContactsList.BeginUpdate();
 
             project = ContactsApp.ProjectManager.LoadContactListFromFile();
 
@@ -69,7 +71,7 @@ namespace ContactsAppUI
                 }
 
 
-                ContactsList.EndUpdate();
+                //ContactsList.EndUpdate();
 
                 /// <summary>
                 /// Поиск выбранного контакта
@@ -94,9 +96,11 @@ namespace ContactsAppUI
 
                 VkBox.Text = contact1.VkId;
 
-                this.Show();
 
-                AnnounceBirthdays();
+               Show();
+
+                
+               AnnounceBirthdays();
 
 
             }
@@ -166,7 +170,7 @@ namespace ContactsAppUI
         {
             Contact contact2 = new Contact();
             Project project2 = new Project();
-
+            if (ContactsList.Items.Count > 0) {
             DialogResult result = MessageBox.Show("Are you sure?", "Question", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -187,10 +191,18 @@ namespace ContactsAppUI
                     File.WriteAllText(ContactsApp.My_Constants.WholePath, string.Empty);
                     ContactsApp.ProjectManager.SaveContactListToFile(project2);
                 }
+                if (ContactsList.Items.Count == 1)
+                {
+                    LastNameBox.Text = string.Empty;
+                    NameBox.Text = string.Empty;
+                    BirthdayBox.Text = string.Empty;
+                    PhoneBox.Text = string.Empty;
+                    EMailBox.Text = string.Empty;
+                    VkBox.Text = string.Empty;
+                }
+                    ContactsList.Items.Clear();
 
-                ContactsList.Items.Clear();
-
-                ContactsList.BeginUpdate();
+                //ContactsList.BeginUpdate();
 
                 project2 = ContactsApp.ProjectManager.LoadContactListFromFile();
 
@@ -212,9 +224,9 @@ namespace ContactsAppUI
                     }
 
 
-                    ContactsList.EndUpdate();
+                    //ContactsList.EndUpdate();
                 }
-
+            }
             }
         }
 
@@ -259,6 +271,9 @@ namespace ContactsAppUI
         {
             Contact contact2 = new Contact();
             Project project2 = new Project();
+            if (ContactsList.Items.Count > 0)
+            {
+
             DialogResult result = MessageBox.Show("Are you sure?", "Question", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -278,11 +293,22 @@ namespace ContactsAppUI
                 {
                     File.WriteAllText(ContactsApp.My_Constants.WholePath, string.Empty);
                     ContactsApp.ProjectManager.SaveContactListToFile(project2);
+                    
+                }
+
+                if (ContactsList.Items.Count == 1)
+                {
+                    LastNameBox.Text = string.Empty;
+                    NameBox.Text = string.Empty;
+                    BirthdayBox.Text=string.Empty;
+                    PhoneBox.Text = string.Empty;
+                    EMailBox.Text = string.Empty;
+                    VkBox.Text = string.Empty;
                 }
 
                 ContactsList.Items.Clear();
 
-                ContactsList.BeginUpdate();
+                //ContactsList.BeginUpdate();
 
                 project2 = ContactsApp.ProjectManager.LoadContactListFromFile();
 
@@ -304,9 +330,10 @@ namespace ContactsAppUI
                     }
 
 
-                    ContactsList.EndUpdate();
+                    //ContactsList.EndUpdate();
                 }
 
+            }
 
             }
         }
@@ -353,20 +380,22 @@ namespace ContactsAppUI
 
             ContactsList.Items.Clear();
 
-            ContactsList.BeginUpdate();
-
+            //ContactsList.BeginUpdate();
+            
             project = ContactsApp.ProjectManager.LoadContactListFromFile();
+           
 
             ///<summary>
             ///Загрузка контактов  (по одному) в ContactsList
             /// </summary>
+            
             if (project.ContactsList.Count > 0)
             {
                 for (int i = 0; i < project.ContactsList.Count; i++)
                 {
                     ContactsList.Items.Add(project.ContactsList[i].LastName);
                 }
-
+                ContactsList.SetSelected(0,true);
                 ContactsList.Sorted = true;
 
                 if (ContactsList.Items.Count > 0)
@@ -374,8 +403,14 @@ namespace ContactsAppUI
                     ContactsList.SelectedIndex = 0;
                 }
 
-                ContactsList.EndUpdate();
+                //ContactsList.EndUpdate();
+
+                
+
             }
+           
+            return;
+
         }
 
         private void AnnounceBirthdays()
@@ -416,7 +451,7 @@ namespace ContactsAppUI
                 k = ContactsList.SelectedIndex;
             }
             
-            ContactsList.BeginUpdate();
+            //ContactsList.BeginUpdate();
 
             project = ContactsApp.ProjectManager.LoadContactListFromFile();
 
@@ -460,7 +495,7 @@ namespace ContactsAppUI
                 ContactsList.SelectedIndex = ContactsList.Items.Count -1;
 
             }
-            ContactsList.EndUpdate();
+            //ContactsList.EndUpdate();
 
         }
     }
