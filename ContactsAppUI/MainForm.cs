@@ -148,6 +148,7 @@ namespace ContactsAppUI
         private void AddContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddEdit newform = new AddEdit();
+            newform.MaskedBirthdayBox.Text = "01.01.2000";
             newform.Show();
             newform.Closing += AddEdit_Closing;
         }
@@ -245,7 +246,7 @@ namespace ContactsAppUI
 
         private void AddContactButton_Click(object sender, EventArgs e)
         {
-            Project project = new Project();
+            // Project project = new Project();
             AddEdit newform = new AddEdit();
             newform.MaskedBirthdayBox.Text = "01.01.2000";
             newform.Show();
